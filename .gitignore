@@ -10,3 +10,4 @@ cloudinary_python.txt
 *.sqlite3
 *.pyc
 sew_crafty/__pycache__
+home/__pycache__
