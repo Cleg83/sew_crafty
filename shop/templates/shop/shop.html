@@ -2,7 +2,28 @@
 {% load static %}
 
 {% block content %}
-
-    <h1>It's working</h1>
-
+    <div class="background-container">
+        <div class="shop-background"></div>
+    </div>
+    <div class="shop-container">
+        <div class="row">
+            {% for product in shop_items %}
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4">
+                    <div class="card h-100 border-0">
+                        <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                        <div class="card-body pb-0">
+                            <p class="mb-0">{{ product.name }}</p>
+                        </div>
+                        <div class="card-footer bg-white pt-0 border-0 text-left">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="mb-0 text-left">${{ product.price }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
