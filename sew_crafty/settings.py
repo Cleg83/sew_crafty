@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     # Sew crafty apps
     'home',
     'shop',
+    'events',
 
 ]
 
