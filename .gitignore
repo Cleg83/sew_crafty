@@ -11,3 +11,4 @@ cloudinary_python.txt
 *.pyc
 sew_crafty/__pycache__
 home/__pycache__
+shop/__pycache__

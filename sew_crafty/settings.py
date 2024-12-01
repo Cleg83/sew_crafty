@@ -54,7 +54,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.twitter_oauth2',
 
+    # Sew crafty apps
     'home',
+    'shop',
 
 ]
 
