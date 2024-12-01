@@ -6,7 +6,7 @@ from .models import Events
 def upcoming_events(request):
     """ View to show upcoming events """
 
-    events = Events.objects.all()
+    events = Events.objects.all().order_by('start_date')
     context = {
         'events': events,
     }

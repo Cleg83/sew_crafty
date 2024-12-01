@@ -5,13 +5,16 @@ from .models import Events
 class EventsAdmin(admin.ModelAdmin):
     list_display = (
         'name',
-        'date',
+        'start_date',
+        'end_date',
+        'start_time',
+        'end_time',
         'location',
         'description',
         'image',
         'ticket_required',
     )
 
-    ordering = ('date',)
+    ordering = ('start_date',)
 
 admin.site.register(Events, EventsAdmin)

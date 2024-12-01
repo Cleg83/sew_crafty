@@ -43,11 +43,6 @@ body {
     animation: scaleBackground 5s ease-in-out forwards; /* Apply scale animation */
 }
 
-.events-carousel {
-    margin-top: 56px;
-    height: 500px;
-}
-
 /* Keyframes for scaling */
 @keyframes scaleBackground {
     0% {
@@ -70,4 +65,10 @@ body {
 /* Placeholder for shop page */
 .shop-container {
     margin-top: 80px;
+}
+
+.carousel-caption {
+    background-color: #000;
+    border: 1px solid green;
+    border-radius: 5px;
 }
