@@ -15,28 +15,32 @@
         <div class="carousel-inner">
             {% for event in events %}
                 <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="10000">
-                    <img src="{{ event.image.url }}" class="d-block w-100 h-100" alt="{{ event.name }}">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h2>{{ event.start_date }}</h2>
-                        {% if event.end_date %}
-                            <br>
-                            <p>To</p>
-                            <h2>{{ event.end_date }}</h2>
-                        {% endif %}
-                        <p>{{ event.start_time }} to {{ event.end_time }}</p>
-                        <h5>{{ event.name }}</h5>
-                        <p>{{ event.description }}</p>
-                        {% if event.ticket_required %}
-                            <p>A ticket is required for this event!</p>
-                            {% if event.ticket_url %}
-                                <a href="{{ event.ticket_url }}" target="_blank" class="btn btn-success" role="button">Buy Here</a>
-                            {% else %}
-                                <p>Tickets to be purchased on arrival</p>                               
-                            {% endif %}
-                        {% endif %}
-                    </div>  
-                </div> 
-            {% endfor %} 
+                    <div class="row my-auto">
+                        <div class="col-sm-7">   
+                            <img src="{{ event.image.url }}" class="d-block w-100 h-100" alt="{{ event.name }}">
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="d-none d-md-block text-center">
+                                <h1 class=>{{ event.name }}</h1>
+                                <br>
+                                <h3>{{ event.start_date }}{% if event.end_date %} - {{ event.end_date }}{% endif %}</h3>
+                                <p>{{ event.start_time }} to {{ event.end_time }}</p>
+                                <div class="event-description text-align-left">
+                                    <p>{{ event.description }}</p>
+                                </div>
+                                {% if event.ticket_required %}
+                                    <p>A ticket is required for this event!</p>
+                                    {% if event.ticket_url %}
+                                        <a href="{{ event.ticket_url }}" target="_blank" class="btn btn-success" role="button">Buy Here</a>
+                                    {% else %}
+                                        <p>Tickets to be purchased on arrival</p>                               
+                                    {% endif %}
+                                {% endif %}
+                            </div>  
+                        </div> 
+                    </div>
+                </div>
+            {% endfor %}  
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#events-carousel" data-bs-slide="prev">
