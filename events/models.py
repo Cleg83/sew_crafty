@@ -2,6 +2,10 @@ from django.db import models
 
 # Create your models here.
 class Events(models.Model):
+
+    class Meta:
+        verbose_name_plural = 'Events'
+        
     name = models.CharField(max_length=600)
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)

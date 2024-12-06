@@ -53,6 +53,10 @@ body {
     }
 }
 
+.navbar-toggler {
+    background-color: #f8f9fa;
+}
+
 .dropdown-menu {
     background-color: #000;
 }
