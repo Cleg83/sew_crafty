@@ -8,7 +8,7 @@ from .models import Product
 def shop_items(request):
     """ Shop view to show all items in the shop """
 
-    # Basic view to test that shop items display correctly
+    # View to display all shop items and provide search functionality
 
     shop_items = Product.objects.all()
     query = None
@@ -29,3 +29,15 @@ def shop_items(request):
     }
 
     return render(request, 'shop/shop.html', context)
+
+
+def shop_item_info(request, shop_item_id):
+    """ Shop item info view """
+
+    shop_item = get_object_or_404(Product, pk=shop_item_id)
+
+    context = {
+        'shop_item': shop_item, 
+    }
+
+    return render(request, 'shop/shop_item_info.html', context)

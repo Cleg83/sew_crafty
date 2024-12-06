@@ -7,17 +7,19 @@
     </div>
     <div class="shop-container">
         <div class="row">
-            {% for product in shop_items %}
+            {% for shop_item in shop_items %}
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-4">
                     <div class="card h-100 border-0">
-                        <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+                        <a href="{% url 'shop_item_info' shop_item.id %}">
+                            <img class="card-img-top img-fluid" src="{{ shop_item.image.url }}" alt="{{ shop_item.name }}">
+                        </a>
                         <div class="card-body pb-0">
-                            <p class="mb-0">{{ product.name }}</p>
+                            <p class="mb-0">{{ shop_item.name }}</p>
                         </div>
                         <div class="card-footer bg-white pt-0 border-0 text-left">
                             <div class="row">
                                 <div class="col">
-                                    <p class="mb-0 text-left">${{ product.price }}</p>
+                                    <p class="mb-0 text-left">${{ shop_item.price }}</p>
                                 </div>
                             </div>
                         </div>
