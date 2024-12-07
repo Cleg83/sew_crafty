@@ -93,6 +93,10 @@ body {
     border-radius: 5px;
 }
 
+#event-title {
+    margin-top: 25px;
+}
+
 .event-description {
     padding: 10px;
 }

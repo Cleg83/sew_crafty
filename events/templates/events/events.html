@@ -21,20 +21,28 @@
                         </div>
                         <div class="col-sm-5">
                             <div class="d-none d-md-block text-center">
-                                <h1 class=>{{ event.name }}</h1>
+                                <div id="event-title">
+                                    <h1>{{ event.name }}</h1>
+                                </div>
                                 <br>
-                                <h3>{{ event.start_date }}{% if event.end_date %} - {{ event.end_date }}{% endif %}</h3>
-                                <p>{{ event.start_time }} to {{ event.end_time }}</p>
+                                <div id="event-times">
+                                    <h3>{{ event.start_date }}{% if event.end_date %} - {{ event.end_date }}{% endif %}</h3>
+                                    <p>{{ event.start_time }} to {{ event.end_time }}</p>
+                                </div>
+                                <hr>
                                 <div class="event-description text-align-left">
                                     <p>{{ event.description }}</p>
                                 </div>
+                                <hr>
                                 {% if event.ticket_required %}
-                                    <p>A ticket is required for this event!</p>
-                                    {% if event.ticket_url %}
-                                        <a href="{{ event.ticket_url }}" target="_blank" class="btn btn-success" role="button">Buy Here</a>
-                                    {% else %}
-                                        <p>Tickets to be purchased on arrival</p>                               
-                                    {% endif %}
+                                    <div id="ticket-info">
+                                        <p>A ticket is required for this event!</p>
+                                        {% if event.ticket_url %}
+                                            <a href="{{ event.ticket_url }}" target="_blank" class="btn btn-success" role="button">Buy Here</a>
+                                        {% else %}
+                                            <p>Tickets to be purchased on arrival</p>                               
+                                        {% endif %}
+                                    </div>
                                 {% endif %}
                             </div>  
                         </div> 
