@@ -79,7 +79,8 @@ body {
 
 /* Placeholder for shop page */
 .shop-container,
-.item-info-container {
+.item-info-container,
+.page-content-container {
     margin-top: 80px;
 }
 
