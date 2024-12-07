@@ -77,6 +77,10 @@ body {
     background-color: #484747;
 }
 
+#delivery-banner {
+    margin-top: 56px;
+}
+
 /* Placeholder for shop page */
 .shop-container,
 .item-info-container,

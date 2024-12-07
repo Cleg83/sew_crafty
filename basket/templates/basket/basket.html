@@ -4,10 +4,47 @@
 {% block content %}
 
     <div class="background-container">
-        <div class="home-background"></div>
+        <div class="shop-item-background"></div>
     </div>
     <div class="page-content-container">
-        <h1>It works</h1>
+    {% if basket_items %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Info</th>
+                    <th scope="col"></th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Subtotal</th>
+                    </tr>
+                </thead>
+
+                {% for item in basket_items %}
+                    <tr>
+                        <td>
+                            <img class="img-fluid" src="{{ item.shop_item.image.url }}">
+                        </td>
+                        <td>
+                            <p><strong>{{ item.shop_item.name }}</strong></p>
+                            <p class="small">SKU: {{ item.shop_item.sku|upper }}</p>
+                        </td>
+                        <td>
+                            <p>£{{ item.shop_item.price }}</p>
+                        </td>
+                        <td>
+                            <p>{{ item.quantity }}</p>
+                        </td>
+                        <td>
+                            <p>£{{ item.shop_item.price }}</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <p>There is nothing in your basket!</p>
+    {% endif %}
     </div>
 
 {% endblock %}
