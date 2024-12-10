@@ -1,7 +1,16 @@
 {% extends "base.html" %}
+{% block title_addition %} - Events{% endblock %}
 {% load static %}
 
 {% block content %}
+    <div class="container-fluid container-top-margin-lg">
+        <div class="row">
+            <div class="col">
+                <h2>Events</h2>
+                <hr class="heading-rule">
+            </div>
+        </div>
+    </div>
     <div id="events-carousel" class="carousel slide">
         <div class="carousel-indicators">
             {% for event in events %}

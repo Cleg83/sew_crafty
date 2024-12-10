@@ -23,6 +23,10 @@ body {
     font-size: 1.5rem;
 }
 
+.heading-rule {
+    width: 25%;
+}
+
 /* Container to hold the background image */
 .background-container {
     position: fixed;
@@ -59,7 +63,7 @@ body {
     animation: scaleBackground 5s ease-in-out forwards; /* Apply scale animation */
 }
 
-.shop-item-background {
+.background-no-image {
     position: absolute;
     top: 0;
     left: 0;
@@ -98,15 +102,12 @@ body {
     margin-top: 56px;
 }
 
-/* Placeholder for shop page */
-.shop-container,
-.item-info-container,
-.page-content-container {
-    margin-top: 80px;
+.container-top-margin {
+    margin-top: 25px;
 }
 
-#events-carousel {
-    margin-top: 56px;
+.container-top-margin-lg {
+    margin-top: 80px;
 }
 
 .carousel-caption {
@@ -127,3 +128,30 @@ body {
     border: 1px solid #000;
 }
 
+.update-button {
+    border: none;
+    background: none;
+}
+
+.update-button small:hover {
+    color: #212529;
+}
+
+.basket-item-link {
+    text-decoration: none;
+}
+
+.basket-icon:hover {
+    color: #dc3545;
+}
+
+.dark-button {
+    background-color: #212529;
+    color: #fff;
+}
+
+.dark-button:hover {
+    background-color: #fff;
+    color: #212529;
+    border: 1px solid #212529;
+}

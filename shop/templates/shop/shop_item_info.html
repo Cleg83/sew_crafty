@@ -1,12 +1,22 @@
 {% extends "base.html" %}
+{% block title_addition %} - Item info{% endblock %}
 {% load static %}
 
 {% block content %}
 
+{% include 'includes/delivery_banner.html' %}
+
     <div class="background-container">
-        <div class="shop-item-background"></div>
+        <div class="background-no-image"></div>
     </div>
-    <div class="container-fluid page-content-container">
+    <div class="container-fluid container-top-margin">
+        <div class="row">
+            <div class="col">
+                <h2>{{ shop_item.name }}</h2>
+                <hr class="heading-rule">
+                <br>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
                 <div class="image-container my-5">
@@ -46,10 +56,10 @@
                                 </div>
                             </div>
                             <div class="col{% if s %}-12 mt-2{% endif %}">
-                                <a href="{% url 'shop' %}" class="btn mt-5 basket-button">
+                                <a href="{% url 'shop' %}" class="btn mt-5 basket-button dark-button">
                                     <span class="text-uppercase">Continue Shopping</span>
                                 </a>
-                                <input type="submit" class="btn basket-button text-uppercase mt-5" value="Add to Basket">
+                                <input type="submit" class="btn basket-button text-uppercase dark-button mt-5" value="Add to Basket">
                             </div>
                             <input type="hidden" name="redirect_url" value="{{ request.path }}">
                         </div>
