@@ -39,13 +39,16 @@
                         <a class="nav-link text-light" href="{% url 'account_login' %}">Login / Create Account</a>
                     </li>
                 {% endif %}
-                {% if grand_total %}
                 <li class="nav-item">
                     <a class="nav-link text-light" href="{% url 'view_basket' %}">
-                        <i class="icon fa-solid fa-basket-shopping"></i>
+                        {% if item_count %}
+                            <i class="icon fa-solid fa-basket-shopping"></i>
+                            <span><small class="text-light"> £{{ grand_total|floatformat:2 }}</small></span>
+                        {% else %}
+                            <i class="icon fa-solid fa-basket-shopping"></i>
+                        {% endif %}
                     </a>
                 </li>
-                {% endif %}
             </ul>		
         </div>
         <form method="GET" action="{% url 'shop' %}" class="d-flex">
