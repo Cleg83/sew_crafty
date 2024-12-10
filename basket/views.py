@@ -37,7 +37,7 @@ def adjust_basket(request, item_id):
 
     if quantity > 0:
         basket[item_id] = quantity
-        messages.success(request, f'{shop_item.name} new quantity is {basket[item_id]}')
+        messages.success(request, 'Basket updated')
     else:
         basket.pop(item_id)
         messages.success(request, f'{shop_item.name} removed from your basket')
