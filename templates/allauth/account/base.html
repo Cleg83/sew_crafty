@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="background-container">
+        <div class="background-no-image"></div>
+    </div>
+    <div class="container container-top-margin-lg">
+        <div class="row">
+            <div class="col-6">
+                <div class="allauth-form-inner-content">
+                    {% block inner_content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
