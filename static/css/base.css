@@ -3,12 +3,24 @@ html {
 }
 
 body {
-    /* height: calc(100vh - 56px); */
-    /* overflow: hidden; */
+    font-family: 'Quicksand', sans-serif;
 }
+
+/* from Bulma */
+/* .icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+} */
 
 .text-align-left {
     text-align: left;
+}
+
+.font-large {
+    font-size: 1.5rem;
 }
 
 /* Container to hold the background image */
@@ -64,6 +76,11 @@ body {
     }
 }
 
+/* .message-container {
+    margin-top: 80px;
+    z-index: 99999999999;
+} */
+
 .navbar-toggler {
     background-color: #f8f9fa;
 }
@@ -104,5 +121,9 @@ body {
 
 .event-description {
     padding: 10px;
+}
+
+.basket-button {
+    border: 1px solid #000;
 }
 
