@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load get_subtotal %}
 
 {% block content %}
 
@@ -13,7 +14,7 @@
         <div class="col">
             {% if basket_items %}
                 <div class="table-responsive rounded">
-                    <table class="table table-sm table-borderless">
+                    <table class="table table-sm table-hover">
                         <thead class="text-black">
                             <tr>
                                 <th scope="col">Product Info</th>
@@ -27,32 +28,52 @@
                         {% for item in basket_items %}
                             <tr>
                                 <td class="py-3">
-                                    <a href="">{{ item.shop_item.name }}</a>
+                                    <a href="{% url 'shop_item_info' item.shop_item.id %}">{{ item.shop_item.name }}</a>
                                     <p>{{ item.shop_item.description }}</p>
                                 </td>
                                 <td class="py-3">
                                     <p class="my-0">£{{ item.shop_item.price }}</p>
                                 </td>
                                 <td class="py-3">
-                                    <p class="my-0">£{{ item.quantity }}</p>
+                                    <form class="form update-basket-form" method ="POST" action="{% url 'adjust_basket' item.item_id %}">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input class="form-control form-control-sm qty_input" type="number"
+                                                    name="quantity" value="{{ item.quantity }}" min="1" max="99" 
+                                                    data-item_id="{{ item.item_id }}" 
+                                                    id="id_qty_{{ item.item_id }}">
+                                            </div>
+                                        </div>
+                                        <button type="submit" role="submit" class="text-info borderless-btn"><small>Update basket</small></button>
+                                    </form>
                                 </td>
                                 <td class="py-3">
-                                    <p class="my-0">£{{ item.shop_item.price }}</p>
+                                    <p class="my-0">£{{ item.shop_item.price | get_subtotal:item.quantity }}</p>
                                 </td>
                                 <td class="py-3">
-                                    <a href="{% url 'delete_from_basket' item.shop_item.id %}"><i class="fa-solid fa-trash-can"></i></a>
+                                    <a href="{% url 'delete_from_basket' item.shop_item.id %}" class="text-danger"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}
                         <tr>
-                            <td colspan="5" class="pt-5 text-right">   
-                                <p>Grand Total: {{ grand_total|floatformat:2 }}</p><span><button>Checkout</button></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="text-right">
-                                <a href="{% url 'shop' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                            <td class="py-3">
+                                <a href="{% url 'shop' %}" class="btn rounded-2 basket-button">
                                     <span class="text-uppercase">Keep Shopping</span>
+                                </a>
+                            </td>
+                            <td colspan="3">  
+                                <p>Basket Total: £{{ total|floatformat:2 }}</p>
+                                {% if free_delivery_prompt != 0 %}
+                                    <p>Postage: £{{ delivery|floatformat:2 }}</p>
+                                {% else %}
+                                    <p>Postage: Free</p>
+                                {% endif %}
+                                <p class="font-large">Grand Total: £{{ grand_total|floatformat:2 }}</p>
+                            </td>
+                            <td class="py-3">
+                                <a href="" class="btn rounded-2 basket-button">
+                                    <span class="text-uppercase">Checkout</span>
                                 </a>
                             </td>
                         </tr>
