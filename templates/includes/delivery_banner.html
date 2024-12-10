@@ -1,5 +1,11 @@
 <div id="delivery-banner" class="row text-center">
     <div class="col bg-dark text-light">
-        <h4 class="my-1">Free delivery if you order {{ free_delivery_prompt }} more items!</h4>                
+        {% if free_delivery_prompt == 0 %}
+            <h4 class="my-1">You have qualified for free delivery!</h4>
+        {% elif free_delivery_prompt == 1 %}
+            <h4 class="my-1">Free delivery if you order {{ free_delivery_prompt }} more item!</h4>
+        {% else %}
+            <h4 class="my-1">Free delivery if you order {{ free_delivery_prompt }} more items!</h4>
+        {% endif %}
     </div>            
 </div>
