@@ -1,4 +1,5 @@
 {% extends "account/base.html" %}
+{% load crispy_forms_tags %}
 {% load allauth i18n %}
 {% block head_title %}
     {% trans "Signup" %}
@@ -21,6 +22,7 @@
         {% element form form=form method="post" action=action_url tags="entrance,signup" %}
             {% slot body %}
                 {% csrf_token %}
+                {{ form|crispy }}
                 {% element fields form=form unlabeled=True %}
                 {% endelement %}
                 {{ redirect_field }}
