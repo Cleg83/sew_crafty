@@ -97,18 +97,17 @@
                     </fieldset>
                     <br>
                     <fieldset>
+                        <!-- Stripe elements and errors -->
                         <legend class="fieldset_label small px-2 w-auto">Payment</legend>
-                        <!-- A Stripe card element will go here -->
-                        <div class="mb-3" id="card-element"></div>
-                        <!-- Used to display form errors -->
-                        <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                        <div class="mb-3" id="payment-info-box"></div>
+                        <div class="mb-3 text-danger" id="payment-error-box" role="alert"></div>
                     </fieldset>
                 
                     <div class="submit-button">                    
                         <a href="{% url 'view_basket' %}" class="btn rounded-2 dark-button mb-2">
                             <span class="font-weight-bold">Adjust Basket</span>
                         </a>
-                        <button id="submit-button" class="btn rounded-2 dark-button float-right mb-2">
+                        <button id="submit-button" class="btn rounded-2 dark-button float-right mb-3">
                             <span class="font-weight-bold">Pay</span>
                         </button>
                         <p class="small text-danger my-0">
