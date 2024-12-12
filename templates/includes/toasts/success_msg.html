@@ -5,7 +5,27 @@
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-          {{ message }}  
+        <div class="row">
+          <div class="col">
+            {{ message }} 
+          </div>
+        </div>
+        {% if grand_total %}
+          <div class="row">
+            <div class="col">
+              <hr>
+              {% if not on_basket_page %}
+                <a href="{% url 'view_basket' %}" class="btn btn-sm dark-button">
+                  <span class="text-uppercase">View basket</span>
+                </a>
+              {% else %}
+                <a href="{% url 'checkout' %}" class="btn btn-sm dark-button">
+                  <span class="text-uppercase">Checkout</span>
+                </a>
+              {% endif %}
+            </div>
+          </div> 
+        {% endif %}
       </div>
     </div>
   </div>
