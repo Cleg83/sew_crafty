@@ -7,12 +7,12 @@
 {% include 'includes/delivery_banner.html' %}
 
     <div class="background-container">
-        <div class="background-no-image"></div>
+        <div class="shop-background"></div>
     </div>
     <div class="container-fluid container-top-margin">
         <div class="row">
             <div class="col">
-                <h2>Shop</h2>
+                <h2 class="text-light">Shop</h2>
                 <hr class="heading-rule">
                 <br>
             </div>
@@ -24,10 +24,10 @@
                         <a href="{% url 'shop_item_info' shop_item.id %}">
                             <img class="card-img-top img-fluid" src="{{ shop_item.image.url }}" alt="{{ shop_item.name }}">
                         </a>
-                        <div class="card-body pb-0">
+                        <div class="card-body pb-0 bg-white text-dark">
                             <p class="mb-0">{{ shop_item.name }}</p>
                         </div>
-                        <div class="card-footer bg-white pt-0 border-0 text-left">
+                        <div class="card-footer pt-0 border-0 bg-white text-dark text-left">
                             <div class="row">
                                 <div class="col">
                                     <p class="mb-0 text-left">${{ shop_item.price }}</p>
