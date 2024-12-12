@@ -29,7 +29,7 @@
                                     <th scope="col">Price</th>
                                     <th scope="col">Qty</th>
                                     <th scope="col">Subtotal</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Remove from basket</th>
                                 </tr>
                             </thead>
 
@@ -37,6 +37,7 @@
                                 <tr>
                                     <td class="py-3">
                                         <a href="{% url 'shop_item_info' item.shop_item.id %}" class="basket-item-link text-info">{{ item.shop_item.name }}</a>
+                                        <img src="{{ item.shop_item.image.url }}" alt="{{ shop_item.name }}" class="basket-img">
                                         <p>{{ item.shop_item.description }}</p>
                                     </td>
                                     <td class="py-3">
@@ -65,12 +66,7 @@
                                 </tr>
                             {% endfor %}
                             <tr>
-                                <td class="py-3">
-                                    <a href="{% url 'shop' %}" 
-                                        class="btn rounded-2 basket-button dark-button text-uppercase">Continue Shopping
-                                    </a>
-                                </td>
-                                <td colspan="3">  
+                                <td colspan="12" class="text-center">  
                                     <p>Basket Total: £{{ total|floatformat:2 }}</p>
                                     {% if free_delivery_prompt != 0 %}
                                         <p>Postage: £{{ delivery|floatformat:2 }}</p>
@@ -79,8 +75,15 @@
                                     {% endif %}
                                     <p class="font-large">Grand Total: £{{ grand_total|floatformat:2 }}</p>
                                 </td>
-                                <td class="py-3">
-                                    <a href="{% url 'checkout' %}" class="btn rounded-2 basket-button dark-button text-uppercase">Checkout</a>
+                            </tr>
+                            <tr>
+                                <td class="" colspan="6">
+                                    <a href="{% url 'shop' %}" 
+                                        class="btn rounded-2 basket-button dark-button text-uppercase">Continue Shopping
+                                    </a>
+                                </td>
+                                <td class="" colspan="6">
+                                    <a href="{% url 'checkout' %}" class="btn rounded-2 basket-button dark-button text-uppercase float-right">Checkout</a>
                                 </td>
                             </tr>
                         </table>
