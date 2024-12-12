@@ -26,6 +26,7 @@ def shop_items(request):
     context = {
         'shop_items': shop_items,
         'search_criteria': query,
+        'on_shop_page': True,
     }
 
     return render(request, 'shop/shop.html', context)
