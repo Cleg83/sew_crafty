@@ -3,6 +3,10 @@
 {% load static %}
 {% load get_subtotal %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
 {% block content %}
 
 {% include 'includes/delivery_banner.html' %}
@@ -70,6 +74,7 @@
                         {{ order_form.email | as_crispy_field }} 
                         {{ order_form.phone_number | as_crispy_field }}
                     </fieldset>
+                    <br>
                     <fieldset>
                         <legend class="fieldset_label small px-2 w-auto">Delivery Details</legend>
                         {{ order_form.address_1 | as_crispy_field }}
@@ -90,9 +95,9 @@
                             {% endif %}
                         </div>
                     </fieldset>
-
-                    <fieldset class="px-3">
-                        <legend class="fieldset_label text-black small px-2 w-auto">Payment</legend>
+                    <br>
+                    <fieldset>
+                        <legend class="fieldset_label small px-2 w-auto">Payment</legend>
                         <!-- A Stripe card element will go here -->
                         <div class="mb-3" id="card-element"></div>
                         <!-- Used to display form errors -->
@@ -100,10 +105,10 @@
                     </fieldset>
                 
                     <div class="submit-button">                    
-                        <a href="{% url 'view_basket' %}" class="btn rounded-2 dark-button">
+                        <a href="{% url 'view_basket' %}" class="btn rounded-2 dark-button mb-2">
                             <span class="font-weight-bold">Adjust Basket</span>
                         </a>
-                        <button id="submit-button" class="btn rounded-2 dark-button">
+                        <button id="submit-button" class="btn rounded-2 dark-button float-right mb-2">
                             <span class="font-weight-bold">Pay</span>
                         </button>
                         <p class="small text-danger my-0">
@@ -114,4 +119,11 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block post_load_js %}
+    {{ block.super }}
+    {{ stripe_public|json_script:"id_stripe_public" }}
+    {{ stripe_secret|json_script:"id_stripe_secret" }}
+    <script src="{% static 'checkout/js/stripe_integration.js' %}"></script>
 {% endblock %}

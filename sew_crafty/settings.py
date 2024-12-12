@@ -189,6 +189,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 FREE_DELIVERY_ITEM_THRESHOLD = 3
 STANDARD_DELIVERY_COST = 3.99
 
+STRIPE_PUBLIC = 'pk_test_51QUs3ADscwJkW4XYHBWj1pMlP8s5oz0sR36I4KXKpg9083GbudywpIbNofJD5OKRl9bJ8dgDDGUvtJnygcMSicrD00iC78KtyX'
+STRIPE_SECRET = os.environ.get('STRIPE_SECRET')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
