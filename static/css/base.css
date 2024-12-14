@@ -18,7 +18,11 @@ body {
     width: 25%;
 }
 
-.item-price {
+.small-hr {
+    width: 15%;
+}
+
+.bold-font {
     font-weight: bold;
 }
 
