@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-lg-6 order-lg-last mb-5">
+            <div class="col-12 col-lg-4 offset-lg-1 order-lg-last mb-5">
                 <p class="text-muted">Order Summary ({{ item_count }})</p>
                 <div class="row">
                     <div class="col-7 offset-2">
@@ -41,7 +41,7 @@
                             </a>
                         </div>
                         <div class="col-7">
-                            <p class="my-0"><strong>{{ shop_item.name }}</strong></p>
+                            <p class="my-0"><strong>{{ item.shop_item.name }}</strong></p>
                             <p class="my-0 small text-muted">Qty: {{ item.quantity }}</p>
                         </div>
                         <div class="col-3 text-right">
@@ -65,8 +65,19 @@
             </div>
             <p>Please complete the form below to checkout securely.</p>
             <div class="col-12 col-lg-6">
-                <form action="{% url 'checkout' %}" method="POST" id="checkout_form">
+                <form action="{% url 'checkout' %}" method="POST" id="checkout-form">
                     {% csrf_token %}
+                    <div class="form-check form-check-inline float-right mr-0">
+                        {% if user.is_authenticated %}
+                            <label class="form-check-label" for="use-saved-address">Use saved address</label>
+                            <input class="form-check-input ml-2 mr-0" type="checkbox" id="use-saved-address" name="use-saved-address">
+                        {% else %}
+                            <label class="form-check-label" for="use-saved-address">
+                                <a class="text-info" href="{% url 'account_signup' %}">Create an account</a> or 
+                                <a class="text-info" href="{% url 'account_login' %}">login</a> to use your saved address.
+                            </label>
+                        {% endif %}
+                    </div>
                     <fieldset>
                         <legend class="fieldset_label small px-2 w-auto">Personal Details</legend>
                         {{ order_form.first_name | as_crispy_field }}
@@ -83,28 +94,17 @@
                         {{ order_form.county | as_crispy_field }}
                         {{ order_form.postcode | as_crispy_field }}
                         {{ order_form.country | as_crispy_field }}
-                        <div class="form-check form-check-inline float-right mr-0">
-                            {% if user.is_authenticated %}
-                                <label class="form-check-label" for="id-save-info">Save details to my profile</label>
-                                <input class="form-check-input ml-2 mr-0" type="checkbox" id="id-save-info" name="save_info" checked>
-                            {% else %}
-                                <label class="form-check-label" for="id-save-info">
-                                    <a class="text-info" href="{% url 'account_signup' %}">Create an account</a> or 
-                                    <a class="text-info" href="{% url 'account_login' %}">login</a> to save this information
-                                </label>
-                            {% endif %}
-                        </div>
                     </fieldset>
                     <br>
                     <fieldset>
                         <!-- Stripe elements and errors -->
                         <legend class="fieldset_label small px-2 w-auto">Payment</legend>
-                        <div class="mb-3" id="payment-info-box"></div>
-                        <div class="mb-3 text-danger" id="payment-error-box" role="alert"></div>
+                        <div class="mb-4" id="payment-info-box"></div>
+                        <div class="mb-4 text-danger" id="payment-error-box" role="alert"></div>
                     </fieldset>
                 
                     <div class="submit-button">                    
-                        <a href="{% url 'view_basket' %}" class="btn rounded-2 dark-button mb-2">
+                        <a href="{% url 'view_basket' %}" class="btn rounded-2 dark-button mb-3">
                             <span class="font-weight-bold">Adjust Basket</span>
                         </a>
                         <button id="submit-button" class="btn rounded-2 dark-button float-right mb-3">
@@ -123,6 +123,6 @@
 {% block post_load_js %}
     {{ block.super }}
     {{ stripe_public|json_script:"id_stripe_public" }}
-    {{ stripe_secret|json_script:"id_stripe_secret" }}
+    {{ client_secret|json_script:"id_client_secret" }}
     <script src="{% static 'checkout/js/stripe_integration.js' %}"></script>
 {% endblock %}

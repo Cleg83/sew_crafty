@@ -30,8 +30,8 @@ class Order(models.Model):
     
     def update_total(self):
         self.order_total = self.lineitems.aggregate(Sum('item_total'))['item_total__sum'] or 0
-        if self.item_count < settings.FREE_DELIVERY_ITEM_THRESHOLD:
-            self.delivery_fee = self.order_total + settings.STANDARD_DELIVERY_COST
+        if self.item_count < str(settings.FREE_DELIVERY_ITEM_THRESHOLD):
+            self.delivery_fee = int(settings.STANDARD_DELIVERY_COST)
         else:
             self.delivery_fee = 0
         self.grand_total = self.order_total + self.delivery_fee
@@ -57,7 +57,7 @@ class LineItem(models.Model):
         """
         Set item total and update order total
         """
-        self.item_total = self.product.price * self.quantity
+        self.item_total = self.shop_item.price * self.quantity
         super().save(*args, **kwargs)
 
     def __str__(self):

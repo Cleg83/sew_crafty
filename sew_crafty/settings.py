@@ -47,7 +47,6 @@ INSTALLED_APPS = [
 
     # Social accounts
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.apple',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.instagram',
@@ -186,11 +185,15 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+# Stripe
+
 FREE_DELIVERY_ITEM_THRESHOLD = 3
 STANDARD_DELIVERY_COST = 3.99
-
-STRIPE_PUBLIC = 'pk_test_51QUs3ADscwJkW4XYHBWj1pMlP8s5oz0sR36I4KXKpg9083GbudywpIbNofJD5OKRl9bJ8dgDDGUvtJnygcMSicrD00iC78KtyX'
+STRIPE_CURRENCY = 'gbp'
+STRIPE_PUBLIC = os.environ.get('STRIPE_PUBLIC')
 STRIPE_SECRET = os.environ.get('STRIPE_SECRET')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title_addition %} - Success{% endblock %}
+{% load static %}
+
+{% block content %}
+
+<div class="background-container">
+    <div class="background-no-image"></div>
+</div>
+<div class="container-fluid container-top-margin-lg">
+    <div class="row">
+        <div class="col">
+            <h2>Thank you for your order!</h2>
+            <hr class="heading-rule">
+            <br>
+            <p>Order information below. A confirmation email has been sent to {{ order.email }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h4>Order Summary</h4>
+        </div>
+    </div>   
+    <div class="row">
+        <div class="col">
+            <a href="{% url 'home' %}" class="btn rounded-2 dark-button mb-3">
+                <span>Home</span>
+            </a>
+        </div>
+    </div> 
+</div>
+
+{% endblock %}
