@@ -10,9 +10,9 @@
             {{ message }} 
           </div>
         </div>
-        {% if grand_total %}
           <div class="row">
             <div class="col">
+            {% if grand_total and basket_items %}
               <hr>
               {% if not on_basket_page %}
                 <a href="{% url 'view_basket' %}" class="btn btn-sm dark-button">
@@ -23,9 +23,14 @@
                   <span class="text-uppercase">Checkout</span>
                 </a>
               {% endif %}
+            {% else %}
+              <hr>
+              <a href="{% url 'shop' %}" class="btn btn-sm dark-button">
+                <span class="text-uppercase">Shop</span>
+              </a>
+            {% endif %}
             </div>
           </div> 
-        {% endif %}
       </div>
     </div>
   </div>
