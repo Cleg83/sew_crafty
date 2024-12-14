@@ -4,6 +4,8 @@ from django.db import models
 from django.db.models import Sum
 from django.conf import settings
 
+from decimal import Decimal
+
 from shop.models import Product
 
 # Create your models here.
@@ -30,8 +32,9 @@ class Order(models.Model):
     
     def update_total(self):
         self.order_total = self.lineitems.aggregate(Sum('item_total'))['item_total__sum'] or 0
-        if self.item_count < str(settings.FREE_DELIVERY_ITEM_THRESHOLD):
-            self.delivery_fee = int(settings.STANDARD_DELIVERY_COST)
+        item_count = int(self.item_count) if self.item_count else 0
+        if item_count < settings.FREE_DELIVERY_ITEM_THRESHOLD:
+            self.delivery_fee = Decimal(settings.STANDARD_DELIVERY_COST)
         else:
             self.delivery_fee = 0
         self.grand_total = self.order_total + self.delivery_fee
@@ -44,7 +47,6 @@ class Order(models.Model):
 
     def __str__(self):
         return self.order_number
-
 
 
 class LineItem(models.Model):
