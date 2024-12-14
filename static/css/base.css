@@ -6,15 +6,6 @@ body {
     font-family: 'Quicksand', sans-serif;
 }
 
-/* from Bulma */
-/* .icon {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
-} */
-
 .text-align-left {
     text-align: left;
 }
@@ -25,6 +16,10 @@ body {
 
 .heading-rule {
     width: 25%;
+}
+
+.item-price {
+    font-weight: bold;
 }
 
 /* Container to hold the background image */
@@ -159,5 +154,6 @@ body {
     color: #212529;
     border: 1px solid #212529;
 }
+
 
 
