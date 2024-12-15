@@ -43,23 +43,65 @@ form.addEventListener('submit', function(ev) {
     card.update({ 'disabled': true });
     document.getElementById('submit-button').disabled = true;
 
-    stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-            card: card,
-        }
-    }).then(function(result) {
-        if (result.error) {
-            var errorBox = document.getElementById('payment-error-box');
-            var html = `
-                <span>${result.error.message}</span>`;
-            errorBox.innerHTML = html;
-            card.update({ 'disabled': false });
-            document.getElementById('submit-button').disabled = false;
-        } else {
-            if (result.paymentIntent.status === 'succeeded') {
-                form.submit();
+    // From using {% csrf_token %} in the form
+    var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    var postData = {
+        'csrfmiddlewaretoken': csrfToken,
+        'client_secret': clientSecret,
+    };
+    var url = '/checkout/cache_checkout_data/';
+
+    // Concatenate first and last name form fields into fullName for below function
+    const firstName = form.first_name.value.trim();
+    const lastName = form.last_name.value.trim();
+    const fullName = `${firstName} ${lastName}`.trim();
+
+
+    $.post(url, postData).done(function () {
+        stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    name: fullName,
+                    phone: form.phone_number.value.trim(),
+                    email: form.email.value.trim(),
+                    address: {
+                        line1: form.address_1.value.trim(),
+                        line2: form.address_2.value.trim(),
+                        city: form.town.value.trim(),
+                        state: form.county.value.trim(),
+                        country: form.country.value.trim(),
+                    }
+                }
+            },
+            shipping_details: {
+                name: fullName,
+                phone: form.phone_number.value.trim(),
+                address: {
+                    line1: form.address_1.value.trim(),
+                    line2: form.address_2.value.trim(),
+                    city: form.town.value.trim(),
+                    state: form.county.value.trim(),
+                    postal_code: form.postcode.value.trim(),
+                    country: form.country.value.trim(),
+                }
             }
-        }
-    });
+        }).then(function(result) {
+            if (result.error) {
+                var errorBox = document.getElementById('payment-error-box');
+                var html = `
+                    <span>${result.error.message}</span>`;
+                errorBox.innerHTML = html;
+                card.update({ 'disabled': false });
+                document.getElementById('submit-button').disabled = false;
+            } else {
+                if (result.paymentIntent.status === 'succeeded') {
+                    form.submit();
+                }
+            }
+        });
+    }).fail(function () {
+        location.reload();
+    })
 });
 

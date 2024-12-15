@@ -193,6 +193,7 @@ STANDARD_DELIVERY_COST = 3.99
 STRIPE_CURRENCY = 'gbp'
 STRIPE_PUBLIC = os.environ.get('STRIPE_PUBLIC')
 STRIPE_SECRET = os.environ.get('STRIPE_SECRET')
+STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
 
 
 # Default primary key field type
