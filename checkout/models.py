@@ -9,6 +9,7 @@ from decimal import Decimal
 from shop.models import Product
 from basket.contexts import basket_contents
 
+
 # Create your models here.
 class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
@@ -27,14 +28,16 @@ class Order(models.Model):
     delivery_fee = models.DecimalField(max_digits=6, decimal_places=2, null=False, default=0)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
+    original_basket = models.TextField(null=False, blank=False, default="")
+    stripe_pid = models.CharField(max_length=254, null=False, blank=False, default="")
 
     def _create_order_number(self):
         return uuid.uuid4().hex.upper()
-    
+
     def update_total(self):
-        self.order_total = self.lineitems.aggregate(Sum('item_total'))['item_total__sum'] or 0
-        self.item_count = self.lineitems.aggregate(Sum('quantity'))['quantity__sum'] or 0
-        
+        self.order_total = (self.lineitems.aggregate(Sum("item_total"))["item_total__sum"] or 0)
+        self.item_count = (self.lineitems.aggregate(Sum("quantity"))["quantity__sum"] or 0 )
+
         if self.item_count < settings.FREE_DELIVERY_ITEM_THRESHOLD:
             self.delivery_fee = Decimal(settings.STANDARD_DELIVERY_COST)
         else:
@@ -42,7 +45,7 @@ class Order(models.Model):
 
         self.grand_total = self.order_total + self.delivery_fee
         self.save()
-    
+
     def save(self, *args, **kwargs):
         if not self.order_number:
             self.order_number = self._create_order_number()
@@ -53,7 +56,13 @@ class Order(models.Model):
 
 
 class LineItem(models.Model):
-    order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
+    order = models.ForeignKey(
+        Order,
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE,
+        related_name="lineitems",
+    )
     shop_item = models.ForeignKey(Product, null=False, blank=False, on_delete=models.CASCADE)
     quantity = models.IntegerField(null=False, blank=False, default=0)
     item_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
@@ -66,4 +75,4 @@ class LineItem(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'SKU {self.shop_item.sku} on order {self.order.order_number}'
+        return f"SKU {self.shop_item.sku} on order {self.order.order_number}"

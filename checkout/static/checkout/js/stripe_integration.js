@@ -74,7 +74,7 @@ form.addEventListener('submit', function(ev) {
                     }
                 }
             },
-            shipping_details: {
+            shipping: {
                 name: fullName,
                 phone: form.phone_number.value.trim(),
                 address: {

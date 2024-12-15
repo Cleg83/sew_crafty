@@ -44,7 +44,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('/media/snails.jpg') no-repeat center center;
+    background: url('/media/stall.jpg') no-repeat center center;
     background-size: cover; /* Ensures the image covers the container */
     transform: scale(1); /* Initial scale */
     animation: scaleBackground 5s ease-in-out forwards; /* Apply scale animation */
