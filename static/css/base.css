@@ -26,6 +26,11 @@ body {
     font-weight: bold;
 }
 
+#nav-logo {
+    height:40px;
+    width: auto;
+}
+
 /* Container to hold the background image */
 .background-container {
     position: fixed;
