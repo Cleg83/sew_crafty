@@ -164,5 +164,10 @@ body {
     border: 1px solid #212529;
 }
 
-
+.success-container {
+    width: 75%;
+    margin-right: auto;
+    border: 2px solid #000;
+    border-radius: 5px;
+}
 
