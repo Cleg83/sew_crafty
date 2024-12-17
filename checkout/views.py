@@ -2,12 +2,15 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpR
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 from .forms import OrderForm
 from basket.contexts import basket_contents
 
 from .models import Order, LineItem
 from shop.models import Product
+from user_profile.models import UserProfile
 
 import stripe
 import json
@@ -26,6 +29,26 @@ def cache_checkout_data(request):
         messages.error(request, 'Payment cannot be processed \
                         Please try again later.')
         return HttpResponse(content=e, status=400)
+    
+
+@login_required
+def fetch_profile_info(request):
+    """Fetch user profile info as JSON for populating the form."""
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+        data = {
+            "email": request.user.email,
+            "phone_number": profile.default_phone_number,
+            "address_1": profile.default_address_1,
+            "address_2": profile.default_address_2,
+            "town": profile.default_town,
+            "county": profile.default_county,
+            "postcode": profile.default_postcode,
+        }
+        return JsonResponse(data)
+    except UserProfile.DoesNotExist:
+        return JsonResponse({"error": "No profile found"}, status=404)
+    
 
 # Create your views here.
 def checkout(request):
@@ -35,6 +58,7 @@ def checkout(request):
 
     if request.method == 'POST':
         basket = request.session.get('basket', {})
+
         form_data = {
             'first_name': request.POST['first_name'],
             'last_name': request.POST['last_name'],
@@ -49,6 +73,7 @@ def checkout(request):
         }
 
         order_form = OrderForm(form_data)
+
         if order_form.is_valid():
             order = order_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
@@ -120,6 +145,13 @@ def success(request, order_number):
     Handle successful checkouts
     """
     order = get_object_or_404(Order, order_number=order_number)
+
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+
+        order.user_profile = profile
+        order.save()
+
     messages.success(request, f'Order successful! \
         Order number: {order_number}. \
         Confirmation will be sent to {order.email}.')
@@ -133,3 +165,5 @@ def success(request, order_number):
     }
 
     return render(request, template, context)
+
+
