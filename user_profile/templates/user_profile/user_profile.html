@@ -9,11 +9,52 @@
         <div class="background-no-image"></div>
     </div>
     <div class="container-fluid container-top-margin-lg">
-        <h2>My Profile</h2>
-        <hr class="heading-rule">
-        <br>
+        <div class="row">
+            <div class="col">
+                <h2>My Profile</h2>
+                <hr class="heading-rule">
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <p>Your info</p>
+                <form class="mt-3" action="{% url 'user_profile' %}" method="POST" id="update-saved-address=form">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button class="btn dark-button rounded-2 text-uppercase">Update</button>
+                </form>
+
+            </div>
+            <div class="col-12 col-lg-6">
+                <p>Orders</p>
+                <hr>
+                <div class="user-orders table-responsive">
+                    <table class="table-sm">
+                        <thead>
+                            <th>Order No.</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'user_orders' order.order_number %}" 
+                                        title="{{ order.order_number}}">
+                                            {{ order.order_number|truncatechars:9  }}
+                                        </a>
+                                    </td>
+                                    <td>{{ order.date }}</td>
+                                    <td>£{{ order.grand_total }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </div>
-    {{ profile }}
-    
 
 {% endblock %}
